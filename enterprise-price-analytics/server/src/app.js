@@ -5,9 +5,10 @@ import cors from 'cors'
 import productRoutes from './routes/productRoutes.js'
 import jobRoutes from './routes/jobRoutes.js'
 import sourceRoutes from './routes/sourceRoutes.js'
+import analyticsRoutes from './routes/analyticsRoutes.js'
+import integrationRoutes from './routes/integrationRoutes.js'
 import { notFound } from './middleware/notFound.js'
 import { errorHandler } from './middleware/errorHandler.js'
-import { sendSuccess } from './utils/response.js'
 
 const app = express()
 
@@ -47,6 +48,8 @@ app.get('/api/health', (req, res) => {
 app.use('/api/products', productRoutes)
 app.use('/api/jobs', jobRoutes)
 app.use('/api/sources', sourceRoutes)
+app.use('/api/analytics', analyticsRoutes)
+app.use('/api/integrations', integrationRoutes)
 
 // ── 404 & Error Handlers ──────────────────────────────────────
 app.use(notFound)
