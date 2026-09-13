@@ -4,7 +4,18 @@ import 'dotenv/config'
 const supabaseUrl = process.env.SUPABASE_URL?.trim()
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim()
 
-export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseServiceRoleKey)
+const looksLikePlaceholder = (value) =>
+  !value ||
+  value.toLowerCase().includes('your_supabase') ||
+  value.toLowerCase().includes('placeholder') ||
+  value.toLowerCase().includes('example')
+
+export const isSupabaseConfigured = Boolean(
+  supabaseUrl &&
+    supabaseServiceRoleKey &&
+    !looksLikePlaceholder(supabaseUrl) &&
+    !looksLikePlaceholder(supabaseServiceRoleKey)
+)
 
 /**
  * Supabase client for server-side use only.
