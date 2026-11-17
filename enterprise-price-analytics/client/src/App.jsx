@@ -1,24 +1,35 @@
-import { Routes, Route } from 'react-router-dom'
-import Dashboard from './pages/Dashboard.jsx'
-import ProductsPage from './pages/ProductsPage.jsx'
-import ProductDetailPage from './pages/ProductDetailPage.jsx'
-import AnalyticsPage from './pages/AnalyticsPage.jsx'
-import JobsPage from './pages/JobsPage.jsx'
-import SourcesPage from './pages/SourcesPage.jsx'
-import SettingsPage from './pages/SettingsPage.jsx'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ScraperProvider } from './context/ScraperContext';
+import Sidebar from './components/Sidebar';
+import Dashboard from './pages/Dashboard';
+import Matrix from './pages/Matrix';
+import ProductDetail from './pages/ProductDetail';
+import Analytics from './pages/Analytics';
+import Alerts from './pages/Alerts';
+import ScraperStatus from './pages/ScraperStatus';
+import Reports from './pages/Reports';
 
-function App() {
+export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/products" element={<ProductsPage />} />
-      <Route path="/products/:id" element={<ProductDetailPage />} />
-      <Route path="/analytics" element={<AnalyticsPage />} />
-      <Route path="/jobs" element={<JobsPage />} />
-      <Route path="/sources" element={<SourcesPage />} />
-      <Route path="/settings" element={<SettingsPage />} />
-    </Routes>
-  )
+    <BrowserRouter>
+      <ScraperProvider>
+        <div className="flex min-h-screen bg-slate-900">
+        <Sidebar />
+        <main className="flex-1 ml-56 min-h-screen">
+          <div className="max-w-7xl mx-auto px-6 py-8">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/matrix" element={<Matrix />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/alerts" element={<Alerts />} />
+              <Route path="/scraper-status" element={<ScraperStatus />} />
+              <Route path="/reports" element={<Reports />} />
+            </Routes>
+          </div>
+        </main>
+        </div>
+      </ScraperProvider>
+    </BrowserRouter>
+  );
 }
-
-export default App
